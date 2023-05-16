@@ -1,0 +1,1 @@
+{"version":"0.0.0","name":"hbs","dependencies":{"cookie-parser":{"version":"1.4.6"},"debug":{"version":"2.6.9"},"express":{"version":"4.16.4"},"hbs":{"version":"4.2.0"},"http-errors":{"version":"1.6.3"},"jade":{"version":"1.11.0"},"morgan":{"version":"1.9.1"},"nodemon":{"version":"2.0.22"}}}
