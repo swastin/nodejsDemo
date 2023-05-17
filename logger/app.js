@@ -1,6 +1,7 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var winston = require('winston');
+require('winston-daily-rotate-file');
 var { combine, timestamp, label, printf } = winston.format;
 //const { body, validationResult } = require('express-validator');
 //import * as winston from 'winston';
@@ -15,6 +16,15 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label}] ${level}: ${message}`;
 });
 
+var transport = new winston.transports.DailyRotateFile({
+  filename: 'application-%DATE%.log',
+  datePattern: 'YYYY-MM-DD-HH',
+  zippedArchive: true,
+  maxSize: '2k',
+  //maxFiles: '1d'
+});
+
+
 var logger = winston.createLogger({
   level: 'info',
   format: combine(
@@ -22,19 +32,19 @@ var logger = winston.createLogger({
     timestamp(),
     myFormat
   ),
-  transports: [
+  transports: [transport,
     new winston.transports.Console,
     new winston.transports.File({ filename: 'InfoLog.log', level: 'info' }),]
 })
 
 app.get('/', (req, res) => {
 
-  for (let index = 0; index <5; index++) {
-   logger.log('info', 'request received')
-    
+  for (let index = 0; index < 50000; index++) {
+    logger.log('info', 'request received')
+
   }
 
-  
+
   res.send("Hello World");
 })
   ;
