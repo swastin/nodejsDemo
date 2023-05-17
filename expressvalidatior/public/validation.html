@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" id="details" action="/validation">
+        <!-- <input type="email" id="email" id="">
+<input type="number" id="number" id="">
+<input type="text" id="text" id="">
+<input type="tel" id="" id="">
+<input type="date" id="" id=""> -->
+        <!-- <input type="button"><br> -->
+        <!-- <input type="checkbox"><br> -->
+        <!-- color <input type="color" id="color" name="color"><br> -->
+        date <input type="date" id="date" name="date" ><br>
+        dateandtime <input type="datetime-local" id="dateandtime" name="dnt"><br>
+        email<input type="email" id="email" name="email"><br>
+        file<input type="file" id="file" name=""><br>
+        month <input type="month" id="month" name="month"><br>
+        number <input type="number" id="number" name="number"><br>
+        password <input type="password" id="password" name="password"><br>
+        range <input type="range" id="range" name=""><br>
+        search<input type="search" id="search" name="search"><br>
+        phone <input type="tel" id="telephone" name="telephone"><br>
+        text <input type="text" id="normaltext" name="ntxt"> <br>
+        time <input type="time" id="time" name="time"><br>
+        url <input type="url" id="url" name="url"><br>
+
+        <input type="submit" value="submit">
+    </form>
+    <script>
+        document.getElementById("details").addEventListener('submit', (ev) => {
+           // ev.preventDefault();
+            var formelementvalues = {
+                color: document.getElementById("color").value,
+                date: document.getElementById("date").value,
+                dateandtime: document.getElementById("dateandtime").value,
+                email: document.getElementById("email").value,
+                // image: document.getElementById("image").value,
+                month: document.getElementById("month").value,
+                number: document.getElementById("number").value,
+                password: document.getElementById("password").value,
+                range: document.getElementById("range").value,
+                search: document.getElementById("search").value,
+                tel: document.getElementById("telephone").value,
+                text: document.getElementById("normaltext").value,
+                time: document.getElementById("time").value,
+                url: document.getElementById("url").value
+            }
+            console.log(formelementvalues);
+
+
+        })
+
+       // alert(formelementvalues);
+    </script>
+</body>
+
+</html>
