@@ -1,3 +1,1 @@
-node_modules
-\crudnodedemo\node_modules
-\databseconnection\node_modules
+**/node_modules
