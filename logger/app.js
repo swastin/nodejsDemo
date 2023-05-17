@@ -1,54 +1,43 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
-const { body, validationResult } = require('express-validator');
+var winston = require('winston');
+var { combine, timestamp, label, printf } = winston.format;
+//const { body, validationResult } = require('express-validator');
+//import * as winston from 'winston';
 var app = express();
 app.use(cookieParser());
 app.use(express.urlencoded());
 app.use(express.json());
-app.get('/', (req, res) => { res.sendFile(__dirname + '\\public\\validation.html'); })
-app.post('/validation',
+/**
+ * my customformat
+ */
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} [${label}] ${level}: ${message}`;
+});
 
-  body('date').notEmpty().isDate(),
-  body('dnt').notEmpty().isISO8601().withMessage('Invalid....date and time...'),
-  body('email').notEmpty().isEmail().withMessage('Email is invalid ...'),
-  body('number').notEmpty().isInt({
-    min: 5,
-    max: 10,
-    lt: 11,
-    gt: 5
-  }).withMessage('Number is not In range'),
-  body('password').notEmpty().isStrongPassword({
-    minLength: 10,
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1,
-    returnScore: true,
-    pointsPerUnique: 20,
-    pointsPerRepeat: 5,
-    pointsForContainingLower: 10,
-    pointsForContainingUpper: 10,
-    pointsForContainingNumber: 10,
-    pointsForContainingSymbol: 10
-  }).withMessage('Password is not strong...'),
+var logger = winston.createLogger({
+  level: 'info',
+  format: combine(
+    label({ label: 'right meow!' }),
+    timestamp(),
+    myFormat
+  ),
+  transports: [
+    new winston.transports.Console,
+    new winston.transports.File({ filename: 'InfoLog.log', level: 'info' }),]
+})
 
-  (req, res) => {
-    const result = validationResult(req);
-    if (result.isEmpty()) {
-      res.send({
-        date: req.body.date,
-        dnt: req.body.dnt,
-        email: req.body.email,
-        password: req.body.password,
-      });
-    } else {
-      res.send({ errors: result.array() });
-      // res.send({ messsage: "hello world" });
-    }
+app.get('/', (req, res) => {
 
+  for (let index = 0; index <5; index++) {
+   logger.log('info', 'request received')
+    
+  }
 
-  })
-
+  
+  res.send("Hello World");
+})
+  ;
 app.listen(8080, () => {
   console.log("Server is runing on port 8080...");
 });
