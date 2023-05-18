@@ -17,13 +17,18 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 var transport = new winston.transports.DailyRotateFile({
+  //frequency: '1m',
   filename: 'application-%DATE%.log',
   datePattern: 'YYYY-MM-DD-HH',
   zippedArchive: true,
-  maxSize: '2k',
+  maxSize: '5k',
   //maxFiles: '1d'
 });
-
+transport.on('rotate', function (oldFilename, newFilename) {
+  console.log('Rotating log files');
+  console.log(oldFilename);
+  console.log(newFilename);
+});
 
 var logger = winston.createLogger({
   level: 'info',
@@ -39,8 +44,8 @@ var logger = winston.createLogger({
 
 app.get('/', (req, res) => {
 
-  for (let index = 0; index < 50000; index++) {
-    logger.log('info', 'request received')
+  for (let index = 0; index < 5; index++) {
+    logger.log('info', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis sem sit amet lectus faucibus sagittis vitae eu velit. Quisque vitae nisi gravida, dignissim dolor eget, ornare libero. In non interdum ante. Donec et odio in eros commodo ornare id eget nulla. Nullam egestas nibh ac sapien malesuada dapibus. Suspendisse potenti. Phasellus sollicitudin efficitur tellus eu finibus.')
 
   }
 
