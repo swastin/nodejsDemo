@@ -1,0 +1,4 @@
+catalog
+invoice
+checkout
+cart
